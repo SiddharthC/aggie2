@@ -1,4 +1,9 @@
-This is your new Play application
-=====================================
+How to use:
 
-This file will be packaged with your application, when using `play dist`.
+1) Install node.js > Google it
+2) Install MongoDB > Google it
+3) Start MongoDB server instance > $ mongod 
+4) Go to the /node folder and run => npm install
+5) Then run => node app.js
+6) Open localhost:9000/register to see the registration page. Enter form details and hit submit.
+7) Open mongo console ($ mongo) and run => 1) use Aggie 2) db.users.find()
