@@ -54,16 +54,13 @@ app.post("/register", function(req, res){
 		    		throw err;
 		    	
 		    	res.send("Successfully Registered");
-		    	console.log("User Created");
 		    });
 	});
 });
 
 app.post("/login_check", function(req, res){
 	var username = req.param("email", "");
-	console.log("The email is " + username);
 	var password = req.param("password", "");
-	console.log("The password is " + password);
 	User.findOne({username: username}, function(err, user){
 		if(err)
     		throw err;
@@ -73,7 +70,7 @@ app.post("/login_check", function(req, res){
     			throw err;
     		
     		if (isMatch)											//check if password match
-    			res.sendfile(__dirname + '/views/home.html');
+    			res.redirect('/home');
     		else
     			res.send("Login Failed...");
     	});
