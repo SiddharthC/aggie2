@@ -9,18 +9,21 @@ exports.createUser = function(req, res) {
 
 exports.authenticate_user = function(req, res){
 	
-	//temp =  TODO
 	var email = req.param("email", "");
 	console.log("The email is " + email);
 	var password = req.param("password", "");
 	console.log("The password is " + password);
-	
-	console.log("In authenticate user ");
-	
-//	var temp = User({email: email, password: password}).find({email: email, password: password }, { _id: 1});
-//	//var temp = new User({email: email, password: password}).find();
-//	console.log(temp);
-//	
+	User.find({email: email, password: password }, {_id: 1}, function(err, result){
+		if(err){
+    		console.error(temp);
+    	}else{
+    		if(result[0])
+    			res.sendfile(__dirname + '/views/home.html');
+    		else
+    			res.send("Login Failed...");
+    		console.log(result[0]["_id"]);
+    	}
+	});
 	
 	
 }

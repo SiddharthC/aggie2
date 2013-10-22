@@ -36,30 +36,46 @@ app.get("/home", function(req, res){							//Remember to remove it. TODO
 app.post("/register", function(req, res){
 	var email = req.param("email", "");
 	var password = req.param("password", "");
-    new User({email: email, password: password}).save(function(err, user){
-    	if(err){
-    		console.err(err);
+	
+	if(email == 'mail@address.com'){
+		res.send("Please input a vaild email address");
+		return;
+	}
+	
+	User.find({email: email}, {_id: 1}, function(err, result){
+		if(err){
+    		console.error(temp);
     	}else{
-    		res.send("Successfully Registered");
+    		if(result[0])
+    			res.send("This email id is already registered...\nPlease use Reset Form for password recovery.");
+    		else
+    		    new User({email: email, password: password}).save(function(err, user){
+    		    	if(err){
+    		    		console.error(err);
+    		    	}else{
+    		    		res.send("Successfully Registered");
+    		    		console.log("User Created");
+    		    	}
+    		    });
     	}
-    });
+	});
 });
 
 app.post("/login_check", function(req, res){
-	var err = Api.authenticate_user(req, res);
 	var email = req.param("email", "");
 	console.log("The email is " + email);
 	var password = req.param("password", "");
 	console.log("The password is " + password);
-//	var temp = User({email: email, password: password}).find({email: email, password: password }, { _id: 1});
-	var temp = User({email: email, password: password}).find(function(err, user){});
-	console.log(temp);
-		if(temp){
-    		console.err(err);
+	User.find({email: email, password: password }, {_id: 1}, function(err, result){
+		if(err){
+    		console.error(temp);
     	}else{
-    	
-    		res.sendfile(__dirname + '/views/home.html');
+    		if(result[0])
+    			res.sendfile(__dirname + '/views/home.html');
+    		else
+    			res.send("Login Failed...");
     	}
+	});
 });
 
 app.listen(9000);
