@@ -14,27 +14,11 @@ app.configure(function () {
 
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+app.use(app.router);
 app.use(express.static(__dirname + '/views'));
-app.use(express.cookieParser());
-app.use(express.session({secret: 'smtc2.0-agggie-seesion-key'}));		//This will loose session when application restarts. To solve put sessions in mongodb 
-app.use(app.router);													//moved at end to avoid session error
-
-// Global function for session authentication
-var authenticate = function (req, res, next) {
-	var isAuthenticated = false;
-	if(req.session.username)
-		isAuthenticated = true;
-	if (isAuthenticated)
-		next();
-	else {
-		console.log("Authentication error");  
-	    res.redirect('/login');
-	}
-}
 
 app.get("/", function(req, res){
-  //res.send("Aggie 2.0");
-	res.redirect('/login');
+  res.send("Aggie 2.0");
 });
 
 app.get("/register", function(req, res){
@@ -43,10 +27,9 @@ app.get("/register", function(req, res){
 
 app.get("/login", function(req, res){
 	res.sendfile(__dirname + '/views/login.html');
-	req.session.lastPage = '/login';
 });
 
-app.get("/home", authenticate, function(req, res, next){
+app.get("/home", function(req, res){							//Remember to remove it. TODO
 	res.sendfile(__dirname + '/views/home.html');
 });
 
@@ -75,7 +58,7 @@ app.post("/register", function(req, res){
 	});
 });
 
-app.post("/login", function(req, res){
+app.post("/login_check", function(req, res){
 	var username = req.param("email", "");
 	var password = req.param("password", "");
 	User.findOne({username: username}, function(err, user){
@@ -86,10 +69,8 @@ app.post("/login", function(req, res){
     		if (err)
     			throw err;
     		
-    		if (isMatch){											//check if password match
-    			req.session.username = username;					//set session username for the session. Used for authentication.
+    		if (isMatch)											//check if password match
     			res.redirect('/home');
-    		}
     		else
     			res.send("Login Failed...");
     	});
