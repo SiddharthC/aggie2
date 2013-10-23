@@ -6,7 +6,8 @@ var Api = require('./controllers/api.js');
 var app = express();
 
 // connect to Mongo when the app initializes
-mongoose.connect('mongodb://localhost/aggie');
+//mongoose.connect('mongodb://localhost/aggie');
+mongoose.connect(process.env.DATABASE_URI);//for Heroku database error
 
 app.configure(function () {
     
