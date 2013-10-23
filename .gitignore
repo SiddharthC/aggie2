@@ -9,6 +9,3 @@ dist
 /.project
 /RUNNING_PID
 /.settings
-/node_modules/bcrypt/build/gyp-mac-tool
-/project/
-/target/
