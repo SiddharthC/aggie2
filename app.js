@@ -32,12 +32,25 @@ var authenticate = function (req, res, next) {
 	}
 }
 
+var authenticateAdmin = function (req, res, next) {
+	var isAuthenticated = false;
+	console.log("Username : " + req.session.username + req.session.isAdminFlag);
+	if(req.session.username && req.session.isAdminFlag === "true")
+		isAuthenticated = true;
+	if (isAuthenticated)
+		next();
+	else {
+		console.log("Admin verification failed");  
+	    res.redirect('/login');
+	}
+}
+
 app.get("/", function(req, res){
   //res.send("Aggie 2.0");
 	res.redirect('/login');
 });
 
-app.get("/register", function(req, res){
+app.get("/register", authenticateAdmin, function(req, res){
 	res.sendfile(__dirname + '/views/register.html');
 });
 
@@ -50,33 +63,45 @@ app.get("/home", authenticate, function(req, res, next){
 	res.sendfile(__dirname + '/views/home.html');
 });
 
-app.post("/register", function(req, res){
-	var username = req.param("email", "");
+app.post("/register", authenticateAdmin, function(req, res, next){
+	var username = req.param("username", "");
 	var password = req.param("password", "");
+	var email = req.param("email", "");
+	var isAdminFlag = req.param("isAdminFlag","");
 	
+	if(username == 'Username'){
+		res.send("Please input a vaild username");
+		return;
+	}
+	
+	//TODO make a regex check for valid email
 	if(username == 'mail@address.com'){
 		res.send("Please input a vaild email address");
 		return;
 	}
 	
-	User.findOne({username: username}, function(err, result){
+	if(isAdminFlag === "")
+		isAdminFlag = false;
+	
+	User.findOne({email: email}, function(err, result){
 		if(err)
 			throw err;
 		
 		if(result)
 			res.send("This email id is already registered...\nPlease use Reset Form for password recovery.");
 		else
-		    new User({username: username, password: password}).save(function(err, result){
+			{console.log("Just before save " + username + " " + password + " " + email + " " + isAdminFlag);
+		    new User({username: username, password: password, email: email, iAdminFlag: isAdminFlag}).save(function(err, result){
 		    	if(err)
 		    		throw err;
 		    	
 		    	res.send("Successfully Registered");
-		    });
+		    });}
 	});
 });
 
 app.post("/login", function(req, res){
-	var username = req.param("email", "");
+	var username = req.param("username", "");
 	var password = req.param("password", "");
 	User.findOne({username: username}, function(err, user){
 		if(err)
@@ -88,6 +113,7 @@ app.post("/login", function(req, res){
     		
     		if (isMatch){											//check if password match
     			req.session.username = username;					//set session username for the session. Used for authentication.
+    			req.session.isAdminFlag = user.isAdminFlag;
     			res.redirect('/home');
     		}
     		else

@@ -81,7 +81,7 @@ input {
 	border-radius: 3px;
 }
 
-#login fieldset input[type="email"], #login fieldset input[type="password"] {
+#login fieldset input[type="email"], #login fieldset input[type="password"], #login fieldset input[type="text"] {
 	background-color: #eee;
 	color: #777;
 	padding: 4px 10px;
