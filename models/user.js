@@ -7,7 +7,7 @@ var UserSchema = new Schema({
     	username : {type: String, required: true, index: {unique: true}},
     	password: {type: String, required: true},
     	email: {type: String, required: true},
-    	isAdminFlag: {type: Boolean, required: false}
+    	isAdminFlag: {type: Boolean, required: true}
 });
 
 UserSchema.pre('save', function(next) {

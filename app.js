@@ -8,8 +8,22 @@ var app = express();
 // connect to Mongo when the app initializes
 mongoose.connect('mongodb://localhost/aggie');
 
-app.configure(function () {
-    
+app.configure(function () {							//Admin account init check.
+    	User.findOne({username: "admin"}, function(err, result){
+		if(err)
+			throw err;
+		
+		if(!result)	//if(result)
+			//console.log("Admin account exists.");
+		//else
+		    new User({username: "admin", password: "adminadmin", email: "admin@domain.com", isAdminFlag: "true"}).save(function(err, result){
+		    	if(err)
+		    		throw err;
+		    	
+		    	//console.log("Admin didn't existed. Account created.");
+		    });
+	});
+
 });
 
 app.use(express.bodyParser());
@@ -34,8 +48,7 @@ var authenticate = function (req, res, next) {
 
 var authenticateAdmin = function (req, res, next) {
 	var isAuthenticated = false;
-	console.log("Username : " + req.session.username + req.session.isAdminFlag);
-	if(req.session.username && req.session.isAdminFlag === "true")
+	if(req.session.username && req.session.isAdminFlag === true)
 		isAuthenticated = true;
 	if (isAuthenticated)
 		next();
@@ -51,6 +64,7 @@ app.get("/", function(req, res){
 });
 
 app.get("/register", authenticateAdmin, function(req, res){
+//app.get("/register", function(req, res){
 	res.sendfile(__dirname + '/views/register.html');
 });
 
@@ -90,13 +104,12 @@ app.post("/register", authenticateAdmin, function(req, res, next){
 		if(result)
 			res.send("This email id is already registered...\nPlease use Reset Form for password recovery.");
 		else
-			{console.log("Just before save " + username + " " + password + " " + email + " " + isAdminFlag);
-		    new User({username: username, password: password, email: email, iAdminFlag: isAdminFlag}).save(function(err, result){
+		    new User({username: username, password: password, email: email, isAdminFlag: isAdminFlag}).save(function(err, result){
 		    	if(err)
 		    		throw err;
 		    	
 		    	res.send("Successfully Registered");
-		    });}
+		    });
 	});
 });
 
