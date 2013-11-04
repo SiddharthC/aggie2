@@ -32,15 +32,17 @@ app.use(app.router);													//moved at end to avoid session error
 // Global function for session authentication
 var authenticate = function (req, res, next) {
 	var isAuthenticated = false;
-	if(req.session.username)
+	if(req.session.username){
 		isAuthenticated = true;
-	if (isAuthenticated)
+	}
+	if (isAuthenticated){
 		next();
+	}
 	else {
 		console.log("Authentication error");  
 	    res.redirect('/login');
 	}
-}
+};
 
 var authenticateAdmin = function (req, res, next) {
 	var isAuthenticated = false;
@@ -54,6 +56,7 @@ var authenticateAdmin = function (req, res, next) {
 	}
 }
 
+/* Redirect to login page */
 app.get("/", function(req, res){
 	res.redirect('/login');
 });
