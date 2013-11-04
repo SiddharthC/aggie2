@@ -13,14 +13,10 @@ app.configure(function () {							//Admin account init check.
 		if(err)
 			throw err;
 		
-		if(!result)	//if(result)
-			//console.log("Admin account exists.");
-		//else
+		if(!result)
 		    new User({username: "admin", password: "adminadmin", email: "admin@domain.com", isAdminFlag: "true"}).save(function(err, result){
 		    	if(err)
 		    		throw err;
-		    	
-		    	//console.log("Admin didn't existed. Account created.");
 		    });
 	});
 
@@ -59,12 +55,10 @@ var authenticateAdmin = function (req, res, next) {
 }
 
 app.get("/", function(req, res){
-  //res.send("Aggie 2.0");
 	res.redirect('/login');
 });
 
 app.get("/register", authenticateAdmin, function(req, res){
-//app.get("/register", function(req, res){
 	res.sendfile(__dirname + '/views/register.html');
 });
 
