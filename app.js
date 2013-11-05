@@ -8,22 +8,24 @@ var config = require("./config.js");
 var Bot = require("./twitterbot/bot.js");
 var Data = require("./models/data.js");
 
+var nodemailer = require('nodemailer');
+
 var app = express();
 
 /* connect to Mongo when the app initializes */
 mongoose.connect(config.DATABASE_URL);
 
 app.configure(function () {							//Admin account init check.
-    	User.findOne({username: "admin"}, function(err, result){
+	User.findOne({username: "admin"}, function(err, result){
 		if(err){
 			throw err;
 		}
 		
 		if(!result){
 		    new User({username: "admin", password: "adminadmin", email: "admin@domain.com", isAdminFlag: "true"}).save(function(err, result){
-		    	if(err){
-		    		throw err;
-		    	}
+			if(err){
+				throw err;
+			}
 		    });
 		}
 	});
@@ -110,54 +112,73 @@ app.post("/register", authenticateAdmin, function(req, res, next){
 	}
 	
 	 User.findOne({email: email}, function(err, result){
-     	if(err){
-        	throw err;
-        }
-                
-        if(result){
-        	res.send("This email id is already registered...\nPlease use Reset Form for password recovery.");	
-        }
-                        
-        else{
-        	new User({username: username, password: password, email: email, isAdminFlag: isAdminFlag}).save(function(err, result){
-            	if(err){
-            		throw err;	
-            	}
-                res.send("Successfully Registered");
-           	});
-        }
- 	});
+	if(err){
+		throw err;
+	}
+		
+	if(result){
+		res.send("This email id is already registered...\nPlease use Reset Form for password recovery.");	
+	}
+			
+	else{
+		new User({username: username, password: password, email: email, isAdminFlag: isAdminFlag}).save(function(err, result){
+		if(err){
+			throw err;	
+		}
+
+		// setup e-mail data with unicode symbols
+		var mailOptions = {
+			from: "Aggie 2.0 Dev Team <aggie.node@gmail.com>", // sender address
+			to: email, // list of receivers
+			subject: "Hello World", // Subject line
+			text: "Hello world", // plaintext body
+			html: "<b>Hello world.</b>" // html body
+		}
+
+		// send mail with defined transport object
+		smtpTransport.sendMail(mailOptions, function(error, response){
+		if(error){
+			console.log("Invalid Email: " + error);
+			res.redirect('/register');
+		}
+		//smtpTransport.close(); // shut down the connection pool, no more messages
+		});
+
+		res.send("Please verify through the email received.");
+		});
+	}
+	});
 });
 
 
 app.post("/login", function(req, res){
-        var username = req.param("username", "");
-        var password = req.param("password", "");
-        User.findOne({username: username}, function(err, user){
-        	if(err){
-            	throw err;
-            }
+	var username = req.param("username", "");
+	var password = req.param("password", "");
+	User.findOne({username: username}, function(err, user){
+		if(err){
+		throw err;
+	    }
 		if (user){
-                
-           	user.comparePassword(password, function (err, isMatch){
-            	if(err){
-                	throw err;
-                }
-                    
-                if(isMatch){                                                                                        //check if password match
-                	req.session.username = username;                                        //set session username for the session. Used for authentication.
-                   	req.session.isAdminFlag = user.isAdminFlag;
-                    res.redirect('/home');
-                }
-                else{
-                	res.redirect('/login');
-                }
-            });
+		
+		user.comparePassword(password, function (err, isMatch){
+		if(err){
+			throw err;
+		}
+		    
+		if(isMatch){											    //check if password match
+			req.session.username = username;					//set session username for the session. Used for authentication.
+			req.session.isAdminFlag = user.isAdminFlag;
+		    res.redirect('/home');
 		}
 		else{
 			res.redirect('/login');
 		}
-    	});
+	    });
+		}
+		else{
+			res.redirect('/login');
+		}
+	});
 });
 
 
@@ -217,5 +238,13 @@ var startTwitterBot = function(searchTerm){
 	/* register a listener for tweets */
 	bot.on("tweet", tweetHandler);
 };
+
+var smtpTransport = nodemailer.createTransport("SMTP", {
+	service: "Gmail",
+	auth: {
+		user: "aggie.node@gmail.com",
+		pass: "freeNfair"
+	}
+});
 
 app.listen(config.SERVER_PORT);

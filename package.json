@@ -7,6 +7,7 @@
     "mongoose": "*",
     "ejs": "*",
     "twit": "*",
-    "bcrypt-nodejs": "*"
+    "bcrypt-nodejs": "*",
+    "nodemailer": "*"
   }
 }
