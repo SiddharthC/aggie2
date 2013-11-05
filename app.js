@@ -30,7 +30,8 @@ app.configure(function () {							//Admin account init check.
 
 });
 
-app.use(express.bodyParser());
+app.use(express.json());
+app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.static(__dirname + '/views'));
 app.use(express.cookieParser());
@@ -75,6 +76,7 @@ app.get("/", function(req, res){
 /* serve the registration page */
 app.get("/register", authenticateAdmin, function(req, res){
 	res.sendfile(__dirname + '/views/register.html');
+	req.session.lastPage = '/login';
 });
 
 app.get("/login", function(req, res){
@@ -135,6 +137,7 @@ app.post("/login", function(req, res){
         	if(err){
             	throw err;
             }
+		if (user){
                 
            	user.comparePassword(password, function (err, isMatch){
             	if(err){
@@ -147,9 +150,13 @@ app.post("/login", function(req, res){
                     res.redirect('/home');
                 }
                 else{
-                	res.send("Login Failed...");
+                	res.redirect('/login');
                 }
             });
+		}
+		else{
+			res.redirect('/login');
+		}
     	});
 });
 
