@@ -186,7 +186,7 @@ app.get("/feed", function(req, res){
 var startTwitterBot = function(searchTerm){
 	var bot = new Bot();
 
-	/* start a new filter stream searching public tweets for the word "chemical" */
+	/* start a new filter stream searching public tweets for the searchTerm */
 	bot.setFilterStream({track: searchTerm});
 
 	var tweetHandler = function(tweet){
