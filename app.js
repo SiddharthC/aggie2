@@ -171,13 +171,13 @@ app.post("/start-crawler", function(req, res){
 
 /* Handle GET request for feed */
 app.get("/feed", function(req, res){
-	/* Current implementation is to simply return top 5 entries of the database */
+	/* Current implementation is to simply return the result of Data.find() */
 	Data.find(function(err, data){
 		if(err){
 			console.log("Could not fetch data");
 			console.err(err);
 		}else{
-			console.log(data);
+			res.send(data);
 		}
 	});
 });
