@@ -6,7 +6,7 @@
     "express": "3.x",
     "mongoose": "*",
     "ejs": "*",
-    "bcrypt": "*",
-    "twit": "*"
+    "twit": "*",
+    "bcrypt-nodejs": "*"
   }
 }

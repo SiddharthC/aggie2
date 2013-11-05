@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
-	bcrypt = require('bcrypt'),
+	bcrypt = require('bcrypt-nodejs'),
 	SALT_WORK_FACTOR = 10;
 
 var UserSchema = new Schema({
@@ -25,7 +25,7 @@ UserSchema.pre('save', function(next) {
         }
 
         // hash the password using our new salt
-        bcrypt.hash(user.password, salt, function(err, hash) {
+        bcrypt.hash(user.password, salt, null, function(err, hash) {
             if (err) {
                 return next(err);
             }
