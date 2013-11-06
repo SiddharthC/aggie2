@@ -1,16 +1,15 @@
 <!doctype html>
 <html lang="en-US">
-
 <head>
 
-    <meta charset="utf-8">
+	<meta charset="utf-8">
 
-    <title>Login</title>
+	<title>Login</title>
 
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round">
-    <link rel="stylesheet" href="css/register.css">
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round">
+	<link rel="stylesheet" href="css/main.css">
 
-    <!--[if lt IE 9]>
+	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
@@ -18,13 +17,55 @@
 
 <body>
 
-    <div id="main_menu">
-
-        <p>The Home Screen</p>
-
+	<div id="header">
+        <div id="headercenter">
+            <div id="logo">
+                <h1>Aggie 2.0</h1>
+            </div>
+            <div id="homebutton">
+                <img src="images/home.png" width="50px" height="50px" alt="Home" />
+            </div>
+            <div id="graph">
+                <img src="images/graph.jpg" width="750px" height="50px" alt="Graph" />
+            </div>
+            <div id="profile">
+                <img src="images/profile.png" width="65px" height="65px" alt="Profile" />
+            </div>
+        </div>
     </div>
-    <!-- end login -->
+    <div class="clear"></div>
+    <div id="wrapper">
+        <div id="left">
+            <div id="navbar">
+            <ul>
+                <li><a href="#">Messages</a></li>
+                <li><a href="#">Incidents</a></li>
+                <li><a href="#">Sources</a></li>
+                <li><a href="#">Topics</a></li>
+                <li><a href="#">Follow-up</a></li>
+                <li><a href="#">Analysis</a></li>
+            </div>
+        </div>
+        
+        <div id="right">
+            <div id="floatleft">
+                <div class="box">
+                    <h1>MESSAGES</h1>
+                </div>
+                <div class="box">
+                    <h1>SOURCES</h1>
+                </div>
+            </div>
+            <div id="floatright">
+                <div class="box">
+                    <h1>INCIDENTS</h1>
+                </div>
+                <div class="box">
+                    <h1>TOPICS</h1>
+                </div>
+            </div>
+        </div>
+    </div>
 
-</body>
-
+</body>	
 </html>
