@@ -1,15 +1,16 @@
 <!doctype html>
 <html lang="en-US">
+
 <head>
 
-	<meta charset="utf-8">
+    <meta charset="utf-8">
 
-	<title>Login</title>
+    <title>Login</title>
 
-	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round">
-	<link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round">
+    <link rel="stylesheet" href="css/register.css">
 
-	<!--[if lt IE 9]>
+    <!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
@@ -17,27 +18,42 @@
 
 <body>
 
-	<div id="login">
+    <div id="login">
 
-		<h2><span class="fontawesome-lock"></span>Login</h2>
+        <h2>
+            <span class="fontawesome-lock"></span>Login</h2>
 
-		<form action="login" method="POST">
+        <form action="login" method="POST">
 
-			<fieldset>
+            <fieldset>
 
-				<p><label for="username">Username</label></p>
-				<p><input type="text" id="username" name="username" value="username" onBlur="if(this.value=='')this.value='Username'" onFocus="if(this.value=='Username')this.value=''"></p> <!-- JS because of IE support; better: placeholder="mail@address.com" -->
+                <p>
+                    <label for="username">Username</label>
+                </p>
+                <p>
+                    <input type="text" id="username" name="username" value="username" onBlur="if(this.value=='')this.value='Username'" onFocus="if(this.value=='Username')this.value=''">
+                </p>
+                <!-- JS because of IE support; better: placeholder="mail@address.com" -->
 
-				<p><label for="password">Password</label></p>
-				<p><input type="password" id="password" name="password" value="password" onBlur="if(this.value=='')this.value='password'" onFocus="if(this.value=='password')this.value=''"></p> <!-- JS because of IE support; better: placeholder="password" -->
+                <p>
+                    <label for="password">Password</label>
+                </p>
+                <p>
+                    <input type="password" id="password" name="password" value="password" onBlur="if(this.value=='')this.value='password'" onFocus="if(this.value=='password')this.value=''">
+                </p>
+                <!-- JS because of IE support; better: placeholder="password" -->
 
-				<p><input type="submit" value="Login"></p>
+                <p>
+                    <input type="submit" value="Login">
+                </p>
 
-			</fieldset>
+            </fieldset>
 
-		</form>
+        </form>
 
-	</div> <!-- end login -->
+    </div>
+    <!-- end login -->
 
-</body>	
+</body>
+
 </html>

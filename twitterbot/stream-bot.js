@@ -8,28 +8,31 @@ var bot = new Bot();
 mongoose.connect('mongodb://localhost/aggie');
 
 /* start a new filter stream searching public tweets for the word "chemical" */
-bot.setFilterStream({track: "chemical"});
+bot.setFilterStream({
+	track: "chemical"
+});
 
-var tweetHandler = function(tweet){
+var tweetHandler = function(tweet) {
 	console.log("Received Tweet from stream [" + bot.getStreamName() + "]");
 	console.log(tweet.text);
 
-	var data = new Data({message: tweet.text, source: Data.TWITTER, terms: ["chemical"]});
+	var data = new Data({
+		message: tweet.text,
+		source: Data.TWITTER,
+		terms: ["chemical"]
+	});
 
-	var onDataSaved = function(err, result){
-		if(err){
+	var onDataSaved = function(err, result) {
+		if (err) {
 			console.log("data could not be saved");
 			console.err(err);
-		}else{
+		} else {
 			console.log(result);
 		}
 	};
 
-	data.save(onDataSaved);	
+	data.save(onDataSaved);
 };
 
 /* register a listener for tweets */
 bot.on("tweet", tweetHandler);
-
-
-

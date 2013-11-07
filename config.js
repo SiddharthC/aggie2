@@ -1,4 +1,4 @@
 module.exports = {
-	SERVER_PORT : 9000,
-	DATABASE_URL : "mongodb://localhost/aggie"
+	SERVER_PORT: 9000,
+	DATABASE_URL: "mongodb://localhost/aggie"
 };
