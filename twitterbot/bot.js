@@ -1,10 +1,11 @@
 /* Importing the Twit module */
 var Twit = require("twit");
+var uuid = require("node-uuid");
 
 var Bot = module.exports = function() {
 	/* Load the Aggie2.0 Twitter Account configuration object */
 	var config = require("./config.js");
-
+	this.id = uuid.v1();
 	this.twit = new Twit(config);
 };
 
@@ -36,4 +37,8 @@ Bot.prototype.getStreamName = function() {
 
 Bot.prototype.on = function(event, callback) {
 	this.stream.on(event, callback);
+};
+
+Bot.prototype.stop = function(){
+	this.stream.stop();
 };

@@ -8,6 +8,7 @@
     "ejs": "*",
     "twit": "*",
     "bcrypt-nodejs": "*",
-    "nodemailer": "*"
+    "nodemailer": "*",
+    "node-uuid": "*"
   }
 }

@@ -50,6 +50,25 @@ app.use(express.session({
 app.use(express.logger());
 app.use(app.router); //moved at end to avoid session error
 
+/* Global controller object*/
+var controller = {
+	bots: [],
+
+	/**
+	 * search bots by id
+	 */
+	search: function(id){
+		if(this.bots.length === 0){
+			return null;
+		}
+
+		for(var i = 0; i < this.bots.length; i++){
+			if(this.bots[i].id === id){
+				return this.bots[i];
+			}
+		}
+	}
+};
 
 /* Global function for session authentication */
 var authenticate = function(req, res, next) {
@@ -96,6 +115,11 @@ app.get("/login", function(req, res) {
 
 app.get("/home", authenticate, function(req, res, next) {
 	res.sendfile(__dirname + '/views/home.html');
+});
+
+app.get("/start-crawler", authenticate, function(req, res, next) {
+	res.sendfile(__dirname + '/views/start-crawler.html');
+	//res.send("Test");
 });
 
 app.post("/register", authenticateAdmin, function(req, res, next) {
@@ -201,13 +225,34 @@ app.post("/start-crawler", function(req, res) {
 	if (!source) {
 		res.send("source cannot be empty");
 	}
-	var term = req.param("search-term", null);
+	var term = req.param("searchTerm", null);
 	if (!term) {
 		res.send("search-term cannot be empty");
 	}
 
-	startTwitterBot(term);
+	/* Start a Twitter search bot and store it in the controller */
+	var bot = startTwitterBot(term);
+	controller.bots.push(bot);
 
+	/* send the bot ID back to the front end */
+	res.send({
+		id: bot.id
+	});
+
+});
+
+app.post("/stop-crawler", function(req, res){
+	var botId = req.param("id", null);
+	if(!botId){
+		res.send("id cannot be empty");	
+	}
+
+	var bot = controller.search(botId);
+	if(!bot){
+		res.send("No bot with id [" + botId + "] exists.");
+	}
+	bot.stop();
+	res.send("Bot successfully stopped");
 });
 
 /* Handle GET request for feed */
@@ -218,12 +263,21 @@ app.get("/feed", function(req, res) {
 			console.log("Could not fetch data");
 			console.err(err);
 		} else {
-			res.send(data);
+			if(data){
+				if(data.length <= 10){
+					res.send(data);
+				}
+				res.send(data.slice(data.length - 9, data.length));
+			}
+			
 		}
 	});
 });
 
-/* start a new Twitter bot with the given search term */
+/**
+ * start a new Twitter bot with the given search term
+ * @return reference to the Bot object
+ */
 var startTwitterBot = function(searchTerm) {
 	var bot = new Bot();
 
@@ -233,8 +287,8 @@ var startTwitterBot = function(searchTerm) {
 	});
 
 	var tweetHandler = function(tweet) {
-		console.log("Received Tweet from stream [" + bot.getStreamName() + "]");
-		console.log(tweet.text);
+		//console.log("Received Tweet from stream [" + bot.getStreamName() + "]");
+		//console.log(tweet.text);
 
 		var data = new Data({
 			message: tweet.text,
@@ -247,7 +301,7 @@ var startTwitterBot = function(searchTerm) {
 				console.log("data could not be saved");
 				console.err(err);
 			} else {
-				console.log(result);
+				//console.log(result);
 			}
 		};
 
@@ -256,6 +310,7 @@ var startTwitterBot = function(searchTerm) {
 
 	/* register a listener for tweets */
 	bot.on("tweet", tweetHandler);
+	return bot;
 };
 
 var smtpTransport = nodemailer.createTransport("SMTP", {
