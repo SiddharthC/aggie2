@@ -10,7 +10,7 @@
 			$.ajax("/stop-crawler", {
 				type: "POST",
 				data: {
-					id: $(this).val()
+					id: $(this).attr("id")
 				}
 			}).done(function(data){
 				if(data){

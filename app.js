@@ -224,10 +224,12 @@ app.post("/start-crawler", function(req, res) {
 	var source = req.param("source", null);
 	if (!source) {
 		res.send("source cannot be empty");
+		return;
 	}
 	var term = req.param("searchTerm", null);
 	if (!term) {
 		res.send("search-term cannot be empty");
+		return;
 	}
 
 	/* Start a Twitter search bot and store it in the controller */
@@ -245,11 +247,13 @@ app.post("/stop-crawler", function(req, res){
 	var botId = req.param("id", null);
 	if(!botId){
 		res.send("id cannot be empty");	
+		return;
 	}
 
 	var bot = controller.search(botId);
 	if(!bot){
 		res.send("No bot with id [" + botId + "] exists.");
+		return;
 	}
 	bot.stop();
 	res.send("Bot successfully stopped");
@@ -266,10 +270,10 @@ app.get("/feed", function(req, res) {
 			if(data){
 				if(data.length <= 10){
 					res.send(data);
+					return;
 				}
 				res.send(data.slice(data.length - 9, data.length));
-			}
-			
+			}	
 		}
 	});
 });
