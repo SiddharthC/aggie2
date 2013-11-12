@@ -1,14 +1,13 @@
 var express = require('express');
 var mongoose = require('mongoose');
 
-var User = require('./models/user.js');
-var Api = require('./controllers/api.js');
 var config = require("./config.js");
 
-var Bot = require("./twitterbot/bot.js");
-var Data = require("./models/data.js");
+var User = require('./models/user.js');
+var Controller = require('./controllers/api.js');
 
 var nodemailer = require('nodemailer');
+var _ = require("underscore");
 
 var app = express();
 
@@ -220,102 +219,12 @@ app.post("/login", function(req, res) {
 
 
 /* Handle request to start a crawler */
-app.post("/start-crawler", function(req, res) {
-	var source = req.param("source", null);
-	if (!source) {
-		res.send("source cannot be empty");
-		return;
-	}
-	var term = req.param("searchTerm", null);
-	if (!term) {
-		res.send("search-term cannot be empty");
-		return;
-	}
-
-	/* Start a Twitter search bot and store it in the controller */
-	var bot = startTwitterBot(term);
-	controller.bots.push(bot);
-
-	/* send the bot ID back to the front end */
-	res.send({
-		id: bot.id
-	});
-
-});
-
-app.post("/stop-crawler", function(req, res){
-	var botId = req.param("id", null);
-	if(!botId){
-		res.send("id cannot be empty");	
-		return;
-	}
-
-	var bot = controller.search(botId);
-	if(!bot){
-		res.send("No bot with id [" + botId + "] exists.");
-		return;
-	}
-	bot.stop();
-	res.send("Bot successfully stopped");
-});
+app.post("/start-twitter-bot", _.bind(Controller.startTwitterBot, {controller : controller}));
+app.post("/stop-twitter-bot", _.bind(Controller.stopTwitterBot, {controller: controller}));
 
 /* Handle GET request for feed */
-app.get("/feed", function(req, res) {
-	/* Current implementation is to simply return the result of Data.find() */
-	Data.find(function(err, data) {
-		if (err) {
-			console.log("Could not fetch data");
-			console.err(err);
-		} else {
-			if(data){
-				if(data.length <= 10){
-					res.send(data);
-					return;
-				}
-				res.send(data.slice(data.length - 9, data.length));
-			}	
-		}
-	});
-});
+app.get("/feed", Controller.feed);
 
-/**
- * start a new Twitter bot with the given search term
- * @return reference to the Bot object
- */
-var startTwitterBot = function(searchTerm) {
-	var bot = new Bot();
-
-	/* start a new filter stream searching public tweets for the searchTerm */
-	bot.setFilterStream({
-		track: searchTerm
-	});
-
-	var tweetHandler = function(tweet) {
-		//console.log("Received Tweet from stream [" + bot.getStreamName() + "]");
-		//console.log(tweet.text);
-
-		var data = new Data({
-			message: tweet.text,
-			source: Data.TWITTER,
-			terms: [searchTerm]
-		});
-
-		var onDataSaved = function(err, result) {
-			if (err) {
-				console.log("data could not be saved");
-				console.err(err);
-			} else {
-				//console.log(result);
-			}
-		};
-
-		data.save(onDataSaved);
-	};
-
-	/* register a listener for tweets */
-	bot.on("tweet", tweetHandler);
-	return bot;
-};
 
 var smtpTransport = nodemailer.createTransport("SMTP", {
 	service: "Gmail",

@@ -9,6 +9,7 @@
     "twit": "*",
     "bcrypt-nodejs": "*",
     "nodemailer": "*",
-    "node-uuid": "*"
+    "node-uuid": "*",
+    "underscore": "*"
   }
 }

@@ -4,7 +4,7 @@ var uuid = require("node-uuid");
 
 var Bot = module.exports = function() {
 	/* Load the Aggie2.0 Twitter Account configuration object */
-	var config = require("./config.js");
+	var config = require("./twitter-bot-config.js");
 	this.id = uuid.v1();
 	this.twit = new Twit(config);
 };

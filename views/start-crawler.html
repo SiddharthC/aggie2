@@ -7,7 +7,7 @@
 	<script>
 	$(document).ready(function(){
 		$(document).on("click", ".stopBot", function(){
-			$.ajax("/stop-crawler", {
+			$.ajax("/stop-twitter-bot", {
 				type: "POST",
 				data: {
 					id: $(this).attr("id")
@@ -20,7 +20,7 @@
 		});
 
 		$("#submit-search-btn").click(function(){
-			$.ajax("/start-crawler", {
+			$.ajax("/start-twitter-bot", {
 				type: "POST",
 				data: {
 					source : "TWITTER",
