@@ -102,6 +102,17 @@ body {
 
 #right {
     font-family: Tahoma, Geneva, sans-serif;
+    width: 80%;
+    min-width:1000px;
+}
+
+#rightmessages {
+    font-family: Tahoma, Geneva, sans-serif;
+    width: 80%;
+    min-width:1000px;
+    height:1000px;
+    float:left;
+    background:#CCC;
 }
 
 #right h1 {
@@ -112,10 +123,6 @@ body {
 #left {
     width: 15%;
     min-width:250px;
-   }
-#right {
-    width: 80%;
-    min-width:1000px;
    }
 
 #floatleft {
@@ -128,7 +135,61 @@ body {
     float: left;
     margin: 0 10px;
     width:33%;
-   }
+}
+
+#floatrightmessages {
+    float: left;
+    margin: 0 10px;
+    width:33%;
+    min-width:700px;
+}
+   
+#messagetop ul {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 0 0;
+}
+
+#messagetop ul li {
+    display:box;
+    float: left;
+    width:80px;
+    text-align:center;
+    border: 1px solid #000;
+    margin: 10px 0 0 5px;
+    padding: 0 0 0 5px;
+    font-family: Tahoma, Geneva, sans-serif;
+    color:#000;
+}
+
+#messagetop p {
+    margin: 0;
+    padding: 0;
+}
+
+#messagetop a, a:visited {
+    text-decoration: none;
+    color: #123456;
+}
+
+.messagetoplink {
+    background:#EEE;
+}
+
+.messagetoplink:hover {
+    background:#007799;
+}
+
+#messagetop select {
+    margin: 10px 0 0 10px;
+    float: left;
+}
+
+#message {
+    margin: 15px 0 0 0;
+    background:#EEE;
+    height:55px;
+}
 
 .box {
     width: 95%;
