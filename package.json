@@ -10,6 +10,7 @@
     "bcrypt-nodejs": "*",
     "nodemailer": "*",
     "node-uuid": "*",
-    "underscore": "*"
+    "underscore": "*",
+    "feedparser": "*"
   }
 }
