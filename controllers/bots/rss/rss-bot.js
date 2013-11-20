@@ -60,6 +60,7 @@ var RssFeedController = {
  			});	
  		};
 
+ 		/* Creates a readable stream to the feed URL and searches for the given search term in the feed content */
  		var fetchContent = function(url, callback){
  			request(url).pipe(new FeedParser())
   					.on('error', function(error) {

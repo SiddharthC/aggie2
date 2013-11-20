@@ -99,7 +99,7 @@ var Controller = {
 		res.sendfile("home.html", {root: "./views/"});
 	},
 
-	startBot : function(req, res, next) {
+	startBotPage : function(req, res, next) {
 		res.sendfile("start-crawler.html", {root: "./views/"});
 	},
 
@@ -274,6 +274,17 @@ var Controller = {
 		res.send({
 			msg: feedUrl + " successfully added to DB"
 		});
+	},
+
+	searchRssFeed : function(term){
+		var term = req.param("term", null);
+		if(!term){
+			res.send("term cannot be empty");
+			return;
+		}
+
+		res.send(RssFeedController.searchFeeds(term));
+	
 	}	
 
 };

@@ -54,15 +54,18 @@ app.get("/", function(req, res) {
 app.get("/register", Controller.helper.authenticateAdmin, Controller.registerPage);
 app.get("/login", Controller.loginPage);
 app.get("/home", Controller.helper.authenticate, Controller.home);
-app.get("/start-crawler", Controller.helper.authenticate, Controller.startBot);
 app.post("/register", Controller.helper.authenticateAdmin, Controller.register);
 app.post("/login", Controller.login);
 
 
-/* Handle request to start a crawler */
+/* Twitter API */
+app.get("/twitter-bot-page", Controller.helper.authenticate, Controller.startBotPage);
 app.post("/start-twitter-bot", _.bind(Controller.startTwitterBot, {controller : controller}));
 app.post("/stop-twitter-bot", _.bind(Controller.stopTwitterBot, {controller: controller}));
-app.post("/add-feed-url");
+
+/* RSS API */
+app.post("/add-feed-url", Controller.addFeedUrl);
+app.get("/search-rss-feed", Controller.searchRssFeed);
 
 /* Handle GET request for feed */
 app.get("/feed", Controller.feed);
