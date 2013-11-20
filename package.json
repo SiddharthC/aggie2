@@ -11,6 +11,8 @@
     "nodemailer": "*",
     "node-uuid": "*",
     "underscore": "*",
-    "feedparser": "*"
+    "feedparser": "*",
+    "request": "*",
+    "async": "*"
   }
 }

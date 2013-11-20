@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 
 var config = require("./config.js");
 
-var User = require('./models/user.js');
 var Controller = require('./controllers/api.js');
 var _ = require("underscore");
 
@@ -63,6 +62,7 @@ app.post("/login", Controller.login);
 /* Handle request to start a crawler */
 app.post("/start-twitter-bot", _.bind(Controller.startTwitterBot, {controller : controller}));
 app.post("/stop-twitter-bot", _.bind(Controller.stopTwitterBot, {controller: controller}));
+app.post("/add-feed-url");
 
 /* Handle GET request for feed */
 app.get("/feed", Controller.feed);
