@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+
+	<meta charset="utf-8">
+
+	<title>Messages</title>
+
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round">
+	<link rel="stylesheet" href="css/main.css">
+	<script src="lib/jquery.min.js" type="text/javascript"></script>
+	<script src="scripts/messages.js" type="text/javascript"></script>
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+
+	<div id="header">
+        <div id="headercenter">
+            <div id="logo">
+                <h1>Aggie 2.0</h1>
+            </div>
+            <div id="homebutton">
+                <img src="images/home.png" width="50px" height="50px" alt="Home" />
+            </div>
+            <div id="graph">
+                <img src="images/graph.jpg" width="750px" height="50px" alt="Graph" />
+            </div>
+            <div id="profile">
+                <img src="images/profile.png" width="65px" height="65px" alt="Profile" />
+            </div>
+        </div>
+    </div>
+    <div id="wrapper">
+        <div id="left">
+            <div id="navbar">
+                <ul>
+                    <a href="#"><li class="navlink"><p>Messages</p><p style="font-size:13px;">20,000 Unread</p></li></a>
+                    <a href="#"><li class="navlink"><p>Incidents</p></li></a>
+                    <a href="#"><li class="navlink"><p>Sources</p></li></a>
+                    <a href="#"><li class="navlink"><p>Topics</p></li></a>
+                    <a href="#"><li class="navlink"><p>Follow-up</p></li></a>
+                    <a href="#"><li class="navlink"><p>Analysis</p></li></a>
+                </ul>
+            </div>
+        </div>
+        <div id="rightmessages">
+            <div id="floatrightmessages">
+                <div id="messagetop">
+                    <form action="#" method="POST">
+                        <input type="text" id="search" name="search" value="search" style="margin:10px 0 0 10px;" onBlur="if(this.value=='')this.value='search'" onFocus="if(this.value=='search')this.value=''" />
+                        <ul>
+							<li><input type="checkbox" name="checkAll" value="checkAll"></li>
+                            <a href="#"><li class="messagetoplink"><p>Pertinent</p></li></a>
+                            <a href="#"><li class="messagetoplink"><p>Irrelevant</p></li></a>
+                            <a href="#"><li class="messagetoplink"><p>Delete</p></li></a>
+                        </ul>
+                        <select>
+                            <option>Add to Incident</option>
+                            <option>----------</option>
+                            <option value="new">New</option>
+                            <option value="existing">Existing</option>
+                        </select>
+                        <select>
+                            <option>Filter By</option>
+                            <option>----------</option>
+                            <option>Date/Time</option>
+                            <option>Topic</option>
+                            <option>Source</option>
+                            <option>Assigned to me</option>
+                        </select>
+                    </form>
+                </div>
+				<br/>
+                <div class="clear" id="messageappend"></div>
+				<div id="messagecontainer"></div>
+				
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+</body>	
+</html>

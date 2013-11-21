@@ -1,6 +1,8 @@
 var User = require('../models/user.js');
 var Data = require("../models/data.js");
 var TwitterBotController = require("./bots/twitterbot/twitter-bot-controller.js");
+var RssFeedController = require("./bots/rss/rss-bot.js");
+var Feed = require("../models/rss-feeds.js");
 var nodemailer = require('nodemailer');
 
 exports.createUser = function(req, res) {
@@ -97,7 +99,7 @@ var Controller = {
 		res.sendfile("home.html", {root: "./views/"});
 	},
 
-	startBot : function(req, res, next) {
+	startBotPage : function(req, res, next) {
 		res.sendfile("start-crawler.html", {root: "./views/"});
 	},
 
@@ -259,6 +261,30 @@ var Controller = {
 		bot.stop();
 		console.log("Bot stopped");
 		res.send("Bot successfully stopped");
+	},
+
+	addFeedUrl : function(req, res){
+		var feedUrl = req.param("feedUrl", null);
+		if(!feedUrl){
+			res.send("feedUrl cannot be empty");
+			return;
+		}
+
+		RssFeedController.addFeed(feedUrl);
+		res.send({
+			msg: feedUrl + " successfully added to DB"
+		});
+	},
+
+	searchRssFeed : function(term){
+		var term = req.param("term", null);
+		if(!term){
+			res.send("term cannot be empty");
+			return;
+		}
+
+		res.send(RssFeedController.searchFeeds(term));
+	
 	}	
 
 };
