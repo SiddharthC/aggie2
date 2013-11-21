@@ -16,12 +16,13 @@ startTwitterBot : function(searchTerm) {
 	});
 
 	var tweetHandler = function(tweet) {
-		//console.log("Received Tweet from stream [" + bot.getStreamName() + "]");
-		//console.log(tweet.text);
-
 		var data = new Data({
 			message: tweet.text,
 			source: Data.TWITTER,
+			user_name: tweet.user.name,
+			user_handle: tweet.user.screen_name,
+			user_image_url: tweet.user.profile_image_url,
+			timestamp: tweet.created_at,
 			terms: [searchTerm]
 		});
 
@@ -44,5 +45,10 @@ startTwitterBot : function(searchTerm) {
 }
 
 };
+
+/* Test main function */
+// (function main(){
+// 	TwitterBotController.startTwitterBot("Hyderabad");
+// })();
 
 module.exports = TwitterBotController;

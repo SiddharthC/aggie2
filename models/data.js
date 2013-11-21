@@ -8,6 +8,10 @@ var Schema = mongoose.Schema;
 var DataSchema = new Schema({
 	message: String,
 	source: String, //source of the data - could be one of Twitter, Facebook or RSS
+	user_name: String,
+	user_handle: String,
+	user_image_url: String,
+	timestamp: String,
 	terms: [] //array of search terms
 });
 
