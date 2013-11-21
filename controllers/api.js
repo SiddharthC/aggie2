@@ -39,6 +39,24 @@ var smtpTransport = nodemailer.createTransport("SMTP", {
 });
 
 var Controller = {
+	bot_controller: {
+		bots: [],
+
+		/**
+	 	 * search bots by id
+	 	 */
+		search: function(id){
+			if(this.bots.length === 0){
+				return null;
+			}
+
+			for(var i = 0; i < this.bots.length; i++){
+				if(this.bots[i].id === id){
+					return this.bots[i];
+				}
+			}
+		}
+	},
 
 	helper : {
 		authenticate : function(req, res, next) {
@@ -99,7 +117,7 @@ var Controller = {
 		res.sendfile("home.html", {root: "./views/"});
 	},
 
-	startBotPage : function(req, res, next) {
+	renderBotPage : function(req, res, next) {
 		res.sendfile("start-crawler.html", {root: "./views/"});
 	},
 
@@ -236,7 +254,8 @@ var Controller = {
 
 		/* Start a Twitter search bot and store it in the controller */
 		var bot = TwitterBotController.startTwitterBot(term);
-		this.controller.bots.push(bot);
+		//console.log(this);
+		this.bot_controller.bots.push(bot);
 
 		/* send the bot ID back to the front end */
 		res.send({
@@ -252,7 +271,7 @@ var Controller = {
 			return;
 		}
 
-		var bot = this.controller.search(botId);
+		var bot = this.bot_controller.search(botId);
 		if(!bot){
 			res.send("No bot with id [" + botId + "] exists.");
 			return;
