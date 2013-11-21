@@ -185,10 +185,38 @@ body {
     float: left;
 }
 
-#message {
+.message {
     margin: 15px 0 0 0;
     background:#EEE;
-    height:55px;
+    height:75px;
+}
+
+.messageleft {
+	float:left;
+}
+
+.messageleft p {
+	padding: 0 10px 0 10px;
+}
+
+.messageright img {
+	margin: 7px 0 0 10px;
+	float: left;
+}
+
+.tweet {
+	margin: 1px 0 0 10px;
+	padding: 0;
+	width: 500px;
+	float: left;
+}
+
+.messageright h1 {
+	font-size:14px;
+}
+
+.messageright h2 {
+	font-size:12px;
 }
 
 .box {
