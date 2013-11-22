@@ -1,12 +1,19 @@
 $(document).ready(function() {
-	var SERVER_URL = "http://localhost:9000/feed";
 
-	var getFeedData = function(){
-		$.ajax({
-			url: SERVER_URL,
-			method: GET
-		}).done(function(data) {
-			console.log(data);
+	var logoutHandler = function(){
+		var LOGOUT_URL = "/logout";
+
+		$.ajax(LOGOUT_URL, {
+			type: "POST"
+		}).done(function(){
+			window.location = "/login";
 		});
 	};
+
+	/* All event handler assignments go in here */
+	var assignEventHandlers = function(){
+		$("#logout-button").click(logoutHandler);
+	};
+
+	assignEventHandlers();
 });

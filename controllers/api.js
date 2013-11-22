@@ -239,6 +239,11 @@ var Controller = {
 		});
 	},
 
+	logout: function(req, res){
+		req.session.destroy();
+		res.status(302).redirect("/login");
+	},
+
 	startTwitterBot : function(req, res) {
 		var source = req.param("source", null);
 		if (!source) {

@@ -26,6 +26,7 @@ app.get("/login", Controller.loginPage);
 app.get("/home", Controller.helper.authenticate, Controller.home);
 app.post("/register", Controller.helper.authenticateAdmin, Controller.register);
 app.post("/login", Controller.login);
+app.post("/logout", Controller.logout);
 
 
 /* Twitter API */

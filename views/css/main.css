@@ -49,6 +49,11 @@ body {
     min-width: 1150px;
 }
 
+#logout-button{
+    float: right;
+    margin-top: 1.5%;
+}
+
 
 /* NAV BAR */
 
