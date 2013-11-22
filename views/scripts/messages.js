@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var SERVER_URL = "/feed";
-	var REFRESH_PERIOD = 30000;
+	var REFRESH_PERIOD = 20000;
 	var ID = 0;
 
 	var getFeedData = function(){
@@ -9,16 +9,21 @@ $(document).ready(function() {
 			type: "GET"
 		}).done(function(data) {
 			console.log(data);
+			var timeout = 100;
 			for(var i = 0; i < data.length; i++){
-				generateHTML(data[i]);
+				(function(index){setTimeout(function(){
+					generateHTML(data[index]);
+				}, timeout)})(i);
+				timeout+= 500;
 			}
 		});
 	};
 	
 	var generateHTML = function(data) {
 		var currentID = ID;
+		var rowID = "message_" + currentID;
 		var rowHTML = 
-		"<div class=\"message\" id=\"message_\"" + currentID + ">"
+		"<div class=\"message\" id=" + rowID + " style=\"display:none\">"
 					+ "<div class=\"messageleft\">"
 						+ "<input type=\"checkbox\" name=\"checkID\" value=\"checkID\" style=\"margin: 20px 0 0 24px; padding:0;\">"
 						+ "<p>5 min</p>"
@@ -33,7 +38,7 @@ $(document).ready(function() {
                +"</div>";
 			   
 		$("#messagecontainer").prepend(rowHTML);
-		$("#message_" + currentID).fadeIn();
+		$("#message_" + currentID).fadeIn("slow");
 		ID++;
 	};
 	getFeedData();
