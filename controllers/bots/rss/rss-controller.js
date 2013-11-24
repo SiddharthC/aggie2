@@ -3,7 +3,6 @@ var request = require("request");
 var async = require("async");
 var Feed = require("../../../models/rss-feeds.js");
 var mongoose = require("mongoose");
-var RSSBot = require("./rss-bot.js");
 
 
 var RssFeedController = {
@@ -49,15 +48,8 @@ var RssFeedController = {
 
  			for(var i = 0; i < data.length; i++){
  				tasks.push((function(index){
- 					var f = function(){
- 						var rssBot = new RSSBot(data[index].url, term, function(err, result){
- 							if(err){
- 								console.error(err);
- 								return;
- 							}else{
- 								results.data.push(result);
- 							}
- 						}, onResult);		
+ 					var f = function(callback){
+ 						fetchContent(data[index].url, callback);		
  					};
 
  					return f;
@@ -65,16 +57,39 @@ var RssFeedController = {
  			}
 
  			/* run the search tasks in parallel and return the results at the end */
- 			// async.parallel(tasks, function(error, result){
- 			// 	if(error){
- 			// 		console.error(error);
- 			// 	}
- 			// 	onResult(results);
- 			// });	
+ 			async.parallel(tasks, function(error, result){
+ 				if(error){
+ 					console.error(error);
+ 				}
+ 				onResult(results);
+ 				//process.exit(1);
+ 			});	
 
- 			// console.log("here");
+ 		};
 
- 			tasks[0]();
+ 		/* Creates a readable stream to the feed URL and searches for the given search term in the feed content */
+ 		var fetchContent = function(url, callback){
+ 			var readableStream = request(url);
+
+  			readableStream.pipe(new FeedParser()).on('error', function(error) {
+    					callback(error);
+    					return;
+  					})
+  					.on('readable', function () {
+						var stream = this, item;
+    					while (item = stream.read()) {
+    						if((item.title && item.title.search(term) !== -1) || (item.description && item.description.search(term) !== -1)){
+    							results.data.push({
+    								source: "RSS",
+    								url: url,
+    								title: item.title
+    							});
+    						}
+    					}
+					})
+  					.on("end", function(){
+  						callback();
+  					});
  		};
  	}
 };
@@ -84,10 +99,10 @@ var RssFeedController = {
 // 	mongoose.connect("mongodb://localhost/aggie");
 
 // 	//RssFeedController.addFeed("http://feeds.bbci.co.uk/news/rss.xml");
+// 	RssFeedController.addFeed("http://rss.cnn.com/rss/cnn_topstories.rss");
 
 // 	setTimeout(function(){
-// 		RssFeedController.searchFeeds("Egypt", function(results){
-// 			console.log("here");
+// 		RssFeedController.searchFeeds("man", function(results){
 // 			console.log(results);
 // 		});
 // 	}, 1000);

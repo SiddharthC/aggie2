@@ -300,14 +300,16 @@ var Controller = {
 		});
 	},
 
-	searchRssFeed : function(term){
+	searchRssFeed : function(req, res){
 		var term = req.param("term", null);
 		if(!term){
 			res.send("term cannot be empty");
 			return;
 		}
 
-		res.send(RssFeedController.searchFeeds(term));
+		RssFeedController.searchFeeds(term, function(results){
+			res.send(results);
+		});
 	
 	}	
 
