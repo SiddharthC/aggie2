@@ -1,7 +1,7 @@
 var User = require('../models/user.js');
 var Data = require("../models/data.js");
 var TwitterBotController = require("./bots/twitterbot/twitter-bot-controller.js");
-var RssFeedController = require("./bots/rss/rss-bot.js");
+var RssFeedController = require("./bots/rss/rss-controller.js");
 var Feed = require("../models/rss-feeds.js");
 var nodemailer = require('nodemailer');
 

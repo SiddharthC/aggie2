@@ -42,3 +42,4 @@ app.get("/search-rss-feed", Controller.searchRssFeed);
 app.get("/feed", Controller.feed);
 
 app.listen(config.SERVER_PORT);
+console.log("Aggie 2.0 is up and running on port =====> " + config.SERVER_PORT);
