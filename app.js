@@ -6,11 +6,11 @@ var config = require("./config.js");
 var User = require('./models/user.js');
 var Controller = require('./controllers/api.js');
 var _ = require("underscore");
-
+var Facebook = require('facebook-node-sdk');
 var app = express();
 
 /* connect to Mongo when the app initializes */
-mongoose.connect(config.DATABASE_URL);
+mongoose.connect(config.mongo.DATABASE_URL);
 
 app.configure(Controller.configure);
 
@@ -22,6 +22,7 @@ app.use(express.cookieParser());
 app.use(express.session({
 	secret: 'smtc2.0-agggie-seesion-key'
 })); //This will loose session when application restarts. To solve put sessions in mongodb 
+app.use(Facebook.middleware({ appId: config.facebook.appId, secret: config.facebook.appSecret }));
 app.use(express.logger());
 app.use(app.router); //moved at end to avoid session error
 
@@ -55,10 +56,14 @@ app.get("/", function(req, res) {
 app.get("/register", Controller.helper.authenticateAdmin, Controller.registerPage);
 app.get("/login", Controller.loginPage);
 app.get("/home", Controller.helper.authenticate, Controller.home);
-app.get("/start-crawler", Controller.helper.authenticate, Controller.startBot);
+app.get("/start-crawler", Facebook.loginRequired(), Controller.helper.authenticate, Controller.startBot);
 app.post("/register", Controller.helper.authenticateAdmin, Controller.register);
 app.post("/login", Controller.login);
+// app.get("/fb", Controller.startFBBot);
 
+
+app.get('/fb', Facebook.loginRequired(), Controller.fb);
+app.post("/start-fb-bot", Facebook.loginRequired(), _.bind(Controller.startFBBot, {controller : controller}));
 
 /* Handle request to start a crawler */
 app.post("/start-twitter-bot", _.bind(Controller.startTwitterBot, {controller : controller}));
@@ -67,4 +72,4 @@ app.post("/stop-twitter-bot", _.bind(Controller.stopTwitterBot, {controller: con
 /* Handle GET request for feed */
 app.get("/feed", Controller.feed);
 
-app.listen(config.SERVER_PORT);
+app.listen(config.mongo.SERVER_PORT);

@@ -33,6 +33,22 @@
     			}
     		});
 		});
+
+		$("#submit-search-btn-fb").click(function(){
+			$.ajax("/start-fb-bot", {
+				type: "POST",
+				data: {
+					source : "facebook",
+					id: $("#search-term-fb").val(),
+				}
+			}).done(function(data) {
+    			if(data){
+    				$("#bots").append("<p>"+data.id+"</p>");
+    				$("#bots").append("<span>Started search bot for [" + $("#search-term-fb").val() + "] </span>");
+    				$("#bots").append("<input type=\"button\" id=" + data.id + " class=\"stopBot\" value=\"Stop\"/>");
+    			}
+    		});
+		});
 	});
 	</script>
 </head>
@@ -41,6 +57,11 @@
     <div id="start-bot-form">
     	Search term: <input id="search-term" type="text" name="search-term"/><br>
     	<input id="submit-search-btn" type="button" name="submit-search-term" value="Submit"/>
+    </div>
+
+	<div id="start-bot-form-fb">
+    	Search term FB: <input id="search-term-fb" type="text" name="search-term-fb"/><br>
+    	<input id="submit-search-btn-fb" type="button" name="submit-search-term-fb" value="Submit"/>
     </div>
 
     <div id="bots">

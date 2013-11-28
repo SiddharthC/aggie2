@@ -1,6 +1,7 @@
 var User = require('../models/user.js');
 var Data = require("../models/data.js");
 var TwitterBotController = require("./bots/twitterbot/twitter-bot-controller.js");
+var FBBot = require("./bots/fbbot/fb-bot.js");
 var nodemailer = require('nodemailer');
 
 exports.createUser = function(req, res) {
@@ -217,6 +218,41 @@ var Controller = {
 				}	
 			}
 		});
+	},
+
+	fb: function(req, res){
+
+		req.facebook.api('/19292868552/feed', function(err, data) {
+    		res.writeHead(200, {'Content-Type': 'text/plain'});
+    		res.end('Hello, ' + data['data'][0].id + '!');
+  		});
+	},
+
+	//we need to refactor this
+	startFBBot : function(req, res) {
+		var source = req.param("source", null);
+		if (!source) {
+			res.send ("Source is empty!");
+			return;
+		}
+
+		var groupID = req.param("id", null);
+		if (!groupID) {
+			res.send("Search term is empty");
+			return;
+		}
+
+		var fbData;
+		console.log("pre fb");
+		req.facebook.api('/'+groupID+'/feed', function(err, data) {
+    		fbData = data['data'][0].id;
+    		res.send({
+				id: fbData
+			});
+  		});
+
+  		
+
 	},
 
 	startTwitterBot : function(req, res) {
