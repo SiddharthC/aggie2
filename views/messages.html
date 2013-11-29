@@ -5,7 +5,6 @@
 	<meta charset="utf-8">
 
 	<title>Messages</title>
-
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round">
 	<link rel="stylesheet" href="css/main.css">
 	<script src="lib/jquery.min.js" type="text/javascript"></script>
@@ -25,7 +24,7 @@
                 <h1>Aggie 2.0</h1>
             </div>
             <div id="homebutton">
-                <img src="images/home.png" width="50px" height="50px" alt="Home" />
+                <img id="home_link" src="images/home.png" width="50px" height="50px" alt="Home" />
             </div>
             <div id="graph">
                 <img src="images/graph.jpg" width="750px" height="50px" alt="Graph" />
@@ -45,6 +44,7 @@
                     <a href="#"><li class="navlink"><p>Topics</p></li></a>
                     <a href="#"><li class="navlink"><p>Follow-up</p></li></a>
                     <a href="#"><li class="navlink"><p>Analysis</p></li></a>
+                    <a id="logout_link" href="#"><li class="navlink"><p>Logout</p></li></a>
                 </ul>
             </div>
         </div>
@@ -80,6 +80,15 @@
 				<div id="messagecontainer"></div>
 				
             </div>
+            <div id="start-bot-form" style="float:right;margin-top:5%;margin-right:5%">
+                Search term: <input id="search-term" type="text" name="search-term"/><br>
+                <input id="submit-search-btn" type="button" name="submit-search-term" value="Submit"/>
+                <div id="bots">
+
+                </div>
+            </div>
+
+           
         </div>
         <div class="clear"></div>
     </div>

@@ -7,6 +7,8 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: proxima-nova,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
 }
 
 .clear {
@@ -27,7 +29,7 @@ body {
     margin: 0;
     padding: 20px 0 0 10px;
     float: left;
-    font-family: Tahoma, Geneva, sans-serif;
+    /*font-family: Tahoma, Geneva, sans-serif;*/
 }
 
 #homebutton {
@@ -59,7 +61,7 @@ body {
 
 #left {
     float: left;
-    height: 450px;
+    /* height: 450px; */
     background-color:#999;
     padding: 15px;
 }
@@ -78,7 +80,7 @@ body {
     padding: 10px 0;
     margin: 10px 0 0 0;
     text-align: center;
-    font-family: Tahoma, Geneva, sans-serif;
+    /*font-family: Tahoma, Geneva, sans-serif;*/
     color:#000;
 }
 
@@ -106,17 +108,17 @@ body {
 /* MAIN STUFF */
 
 #right {
-    font-family: Tahoma, Geneva, sans-serif;
+    /*font-family: Tahoma, Geneva, sans-serif;*/
     width: 80%;
     min-width:1000px;
 }
 
 #rightmessages {
-    font-family: Tahoma, Geneva, sans-serif;
-    width: 80%;
+    /*font-family: Tahoma, Geneva, sans-serif;*/
+    /*width: 83%;*/
     min-width:1000px;
     height:1000px;
-    float:left;
+    /*float:left;*/
     background:#CCC;
 }
 
@@ -163,7 +165,7 @@ body {
     border: 1px solid #000;
     margin: 10px 0 0 5px;
     padding: 0 0 0 5px;
-    font-family: Tahoma, Geneva, sans-serif;
+    /*font-family: Tahoma, Geneva, sans-serif;*/
     color:#000;
 }
 

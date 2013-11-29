@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 	/* All event handler assignments go in here */
 	var assignEventHandlers = function(){
-		$("#logout-button").click(logoutHandler);
+		$("#logout_link").click(logoutHandler);
 	};
 
 	assignEventHandlers();

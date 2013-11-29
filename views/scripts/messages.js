@@ -2,10 +2,11 @@ $(document).ready(function() {
 	var SERVER_URL = "/feed";
 	var REFRESH_PERIOD = 20000;
 	var ID = 0;
+	var lastId;
 
-	var getFeedData = function(){
+	var getFeedData = function(bootstrap, _id){
 		$.ajax({
-			url: SERVER_URL,
+			url: bootstrap ? SERVER_URL: SERVER_URL + "?_id=" + _id,
 			type: "GET"
 		}).done(function(data) {
 			console.log(data);
@@ -15,6 +16,9 @@ $(document).ready(function() {
 					generateHTML(data[index]);
 				}, timeout)})(i);
 				timeout+= 500;
+			}
+			if(data && data.length > 0){
+				lastId = data[i - 1]._id;
 			}
 		});
 	};
@@ -41,6 +45,59 @@ $(document).ready(function() {
 		$("#message_" + currentID).fadeIn("slow");
 		ID++;
 	};
-	getFeedData();
-	setInterval(getFeedData, REFRESH_PERIOD);
+	getFeedData(true);
+	setInterval(function(){
+		getFeedData(false, lastId);
+	}, REFRESH_PERIOD);
+
+	var logoutHandler = function(){
+		var LOGOUT_URL = "/logout";
+
+		$.ajax(LOGOUT_URL, {
+			type: "POST"
+		}).done(function(){
+			window.location = "/login";
+		});
+	};
+
+	var homeHandler = function(){
+		window.location = "/home";
+	};
+
+	/* All event handler assignments go in here */
+	var assignEventHandlers = function(){
+		$("#logout_link").click(logoutHandler);
+		$("#home_link").click(homeHandler);
+	};
+
+	assignEventHandlers();
+
+	$(document).on("click", ".stopBot", function(){
+			$.ajax("/stop-twitter-bot", {
+				type: "POST",
+				data: {
+					id: $(this).attr("id")
+				}
+			}).done(function(data){
+				if(data){
+					console.log(data);
+				}
+			});
+		});
+
+		$("#submit-search-btn").click(function(){
+			$.ajax("/start-twitter-bot", {
+				type: "POST",
+				data: {
+					source : "TWITTER",
+					searchTerm: $("#search-term").val()
+				}
+			}).done(function(data) {
+    			if(data){
+    				$("#bots").append("<span>Started search bot for [" + $("#search-term").val() + "] </span>");
+    				$("#bots").append("<input type=\"button\" id=" + data.id + " class=\"stopBot\" value=\"Stop\"/>");
+    				$("#bots").append("<br>");
+    			}
+    		});
+	});
 });

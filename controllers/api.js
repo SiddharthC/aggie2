@@ -223,20 +223,40 @@ var Controller = {
 
 	/* Current implementation is to simply return top 10 most recent results from the Data collection */
 	feed : function(req, res) {
-		Data.find(function(err, data) {
-			if (err) {
-				console.log("Could not fetch data");
-				console.err(err);
-			} else {
-				if(data){
-					if(data.length <= 10){
-						res.send(data);
-						return;
-					}
-					res.send(data.slice(data.length - 9, data.length));
-				}	
-			}
-		});
+		var _id = req.param("_id", null);
+
+		if(_id){
+			Data.find({_id : {$gt : _id}}, function(err, data) {
+				if (err) {
+					console.log("Could not fetch data");
+					console.err(err);
+				} else {
+					if(data){
+						if(data.length <= 10){
+							res.send(data);
+							return;
+						}
+						res.send(data.slice(data.length - 9, data.length));
+					}	
+				}
+			});	
+		}else{
+			Data.find(function(err, data) {
+				if (err) {
+					console.log("Could not fetch data");
+					console.err(err);
+				} else {
+					if(data){
+						if(data.length <= 10){
+							res.send(data);
+							return;
+						}
+						res.send(data.slice(data.length - 9, data.length));
+					}	
+				}
+			});		
+		}
+		
 	},
 
 	logout: function(req, res){
