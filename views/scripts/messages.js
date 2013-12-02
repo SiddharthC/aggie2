@@ -100,4 +100,24 @@ $(document).ready(function() {
     			}
     		});
 	});
+
+	//Get context with jQuery - using jQuery's .get() method.
+	var ctx = $("#myChart").get(0).getContext("2d");
+	
+
+	var getChartData = function(){
+		$.ajax({
+			url: "/trends",
+			type: "GET"
+		}).done(function(data) {
+			console.log(data);
+			//This will get the first returned node in the jQuery collection.
+			var myNewChart = new Chart(ctx).Radar(data);	
+		});
+	};
+
+	getChartData();
+	setInterval(function(){
+		getChartData();
+	}, REFRESH_PERIOD);
 });

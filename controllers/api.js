@@ -2,6 +2,7 @@ var User = require('../models/user.js');
 var Data = require("../models/data.js");
 var TwitterBotController = require("./bots/twitterbot/twitter-bot-controller.js");
 var RssFeedController = require("./bots/rss/rss-controller.js");
+var ChartController = require("./chart-controller.js");
 var Feed = require("../models/rss-feeds.js");
 var nodemailer = require('nodemailer');
 
@@ -331,6 +332,13 @@ var Controller = {
 			res.send(results);
 		});
 	
+	},
+
+	getChartData: function(req, res){
+		ChartController.getCurrentData(function(results){
+			console.log(results);
+			res.send(results);
+		});
 	}	
 
 };

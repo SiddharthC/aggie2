@@ -13,6 +13,7 @@
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="scripts/messages.js" type="text/javascript"></script>
+	<script src="scripts/chart.min.js" type="text/javascript"></script>
 
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -89,13 +90,19 @@
 				
             </div>
 
-            <div id="start-bot-form" style="float:right;margin-top:5%;margin-right:5%">
+             <div id="start-bot-form" style="float:right;margin-top:6%;margin-right:5%">
                 Search term: <input id="search-term" type="text" name="search-term"/><br>
                 <input id="submit-search-btn" type="button" name="submit-search-term" value="Submit"/>
                 <div id="bots">
 
                 </div>
             </div>
+
+            <div style="float:right;margin-top:-3%;margin-right:25%">
+            	<canvas id="myChart" width="400" height="400" style="background-color:rgb(255, 255, 240);border-radius:5px"></canvas>
+            </div>
+
+           
 
            
         </div>

@@ -41,5 +41,8 @@ app.get("/search-rss-feed", Controller.searchRssFeed);
 /* Handle GET request for feed */
 app.get("/feed", Controller.feed);
 
+/* Get chart data to show trends on front end */
+app.get("/trends", Controller.getChartData);
+
 app.listen(config.SERVER_PORT);
 console.log("Aggie 2.0 is up and running on port =====> " + config.SERVER_PORT);
