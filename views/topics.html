@@ -7,7 +7,9 @@
 	<title>Home</title>
 
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Varela+Round">
+	<link rel="stylesheet" href="./css/bootstrap.css">
 	<link rel="stylesheet" href="css/main.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 	<!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -48,23 +50,73 @@
                 </ul>
             </div>
         </div>
+	
 	<div id="Twitter">
-    <h1 style="margin: 0; padding: 0;">Twitter</h1>
-    Twitter sources<br>
-	Keyword 1: &nbsp;<input type="text" name="twitter1"><br><br>
-	Keyword 2: &nbsp;<input type="text" name="twitter2"><br><br>
-	Keyword 3: &nbsp;<input type="text" name="twitter3"><br><br>
+    	
+    
+    <div class="col-sm-8 contact-form">
+    	<h1 style="margin: 0; padding: 0; padding-left:7%">Twitter</h1>
+		<form id="contact" method="post" class="form" role="form">
+			<div class="row">
+				<div class="col-xs-3 col-md-3 form-group">
+					<input class="form-control" id="tsource1" name="tsource1" placeholder="Source" type="text" autofocus />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3 col-md-3 form-group">
+					<input class="form-control" id="tsource2" name="tsource2" placeholder="Source" type="text" autofocus />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3 col-md-3 form-group">
+					<input class="form-control" id="tsource2" name="tsource2" placeholder="Source" type="text" autofocus />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3 col-md-3 form-group">
+					<button class="btn btn-primary pull-right" type="submit">Submit</button>
+				</div>
+			</div>
+		</form>
 	</div>
-	<h1>Facebook</h1>
-        <div id="Facebook">Facebook Keywords<br>
-	Keyword 1: &nbsp;<input type="text" name="fb1"><br><br>
-	Keyword 2: &nbsp;<input type="text" name="fb2"><br><br>
-	Keyword 3: &nbsp;<input type="text" name="fb3"><br><br>
+
+	</div>
+
+	<div id="Facebook">
+    	
+    
+    <div class="col-sm-8 contact-form">
+    	<h1 style="margin: 0; padding: 0; padding-left:5%">Facebook</h1>
+		<form id="contact" method="post" class="form" role="form">
+			<div class="row">
+				<div class="col-xs-3 col-md-3 form-group">
+					<input class="form-control" id="fbsource1" name="fbsource1" placeholder="Source" type="text" autofocus />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3 col-md-3 form-group">
+					<input class="form-control" id="fbsource2" name="fbsource2" placeholder="Source" type="text" autofocus />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3 col-md-3 form-group">
+					<input class="form-control" id="fbsource3" name="fbsource3" placeholder="Source" type="text" autofocus />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3 col-md-3 form-group">
+					<button class="btn btn-primary pull-right" type="submit">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
 
 	</div>
             
         </div>
     </div>
+
+   <script type="text/javascript" src="./scripts/bootstrap.min.js"></script>
 
 </body>	
 </html>
