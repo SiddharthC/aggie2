@@ -27,7 +27,7 @@ $(document).ready(function() {
 		var currentID = ID;
 		var rowID = "message_" + currentID;
 		var rowHTML = 
-		"<div class=\"message\" id=" + rowID + " style=\"display:none\">"
+		"<div class=\"message\" id=" + rowID + " style=\"display:none;border-radius:8px\">"
 					+ "<div class=\"messageleft\">"
 						+ "<input type=\"checkbox\" name=\"checkID\" value=\"checkID\" style=\"margin: 20px 0 0 24px; padding:0;\">"
 						+ "<p>5 min</p>"
@@ -35,7 +35,7 @@ $(document).ready(function() {
 					+"<div class=\"messageright\">"
 						+"<img src=" + data.user_image_url + " height=\"60\" width=\"60\" title=\"twitpic\" alt=\"twitpic\" />"
 						+"<div class=\"tweet\">"
-							+"<h1>" + data.user_name + "<i>@" + data.user_handle + "</i></h1>"
+							+"<h1 style=\"font-weight:bold;margin-top:2%\">" + data.user_name + "<i>@" + data.user_handle + "</i></h1>"
 							+"<h2>" + data.message + "</h2>"
 						+"</div>"
 					+"</div>"
