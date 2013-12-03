@@ -230,7 +230,7 @@ var Controller = {
 			Data.find({_id : {$gt : _id}}, function(err, data) {
 				if (err) {
 					console.log("Could not fetch data");
-					console.err(err);
+					console.error(err);
 				} else {
 					if(data){
 						if(data.length <= 10){

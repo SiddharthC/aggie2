@@ -30,7 +30,7 @@ $(document).ready(function() {
 		"<div class=\"message\" id=" + rowID + " style=\"display:none;border-radius:8px\">"
 					+ "<div class=\"messageleft\">"
 						+ "<input type=\"checkbox\" name=\"checkID\" value=\"checkID\" style=\"margin: 20px 0 0 24px; padding:0;\">"
-						+ "<p>5 min</p>"
+						+ "<p>" + getTimeAgo(data.timestamp) + " mins" + "</p>"
 					+"</div>"
 					+"<div class=\"messageright\">"
 						+"<img src=" + data.user_image_url + " height=\"60\" width=\"60\" title=\"twitpic\" alt=\"twitpic\" />"
@@ -58,6 +58,16 @@ $(document).ready(function() {
 		}).done(function(){
 			window.location = "/login";
 		});
+	};
+
+	var getTimeAgo = function(timestamp){
+		var current = new Date();
+		var tweetDate = new Date(timestamp);
+
+		var MILLIS_IN_MIN = 60 * 1000;
+		var minsAgo = (current.getTime() - tweetDate.getTime())/MILLIS_IN_MIN;
+
+		return Math.floor(minsAgo);
 	};
 
 	var homeHandler = function(){
