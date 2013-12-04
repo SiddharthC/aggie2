@@ -9,10 +9,10 @@ var ChartController = {
 		results.labels = [];
 		results.datasets = [];
 		results.datasets.push({
-			fillColor : "rgba(151,187,205,0.5)",
+			fillColor : "#CAC546",
 			strokeColor : "#333",
 			pointColor : "rgba(151,187,205,1)",
-			pointStrokeColor : "#fff",
+			pointStrokeColor : "#333",
 			data: []
 		});
 

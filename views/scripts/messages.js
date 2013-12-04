@@ -122,7 +122,12 @@ $(document).ready(function() {
 		}).done(function(data) {
 			console.log(data);
 			//This will get the first returned node in the jQuery collection.
-			var myNewChart = new Chart(ctx).Radar(data);	
+			var myNewChart = new Chart(ctx).Radar(data, {
+				scaleLineColor: "#999",
+				angleLineColor : "#999",
+				pointLabelFontSize : 16,
+				pointLabelFontStyle : "bold"
+			});	
 		});
 	};
 
