@@ -95,7 +95,7 @@ $(document).ready(function() {
 			});
 		});
 
-		$("#submit-search-btn").click(function(){
+	$("#submit-search-btn").click(function(){
 			$.ajax("/start-twitter-bot", {
 				type: "POST",
 				data: {
@@ -105,8 +105,8 @@ $(document).ready(function() {
 			}).done(function(data) {
     			if(data){
     				$("#bots").append("<span>Started search bot for [" + $("#search-term").val() + "] </span>");
-    				$("#bots").append("<input type=\"button\" id=" + data.id + " class=\"stopBot\" value=\"Stop\"/>");
-    				$("#bots").append("<br>");
+    				$("#bots").append("<input type=\"button\" id=" + data.id + " class=\"stopBot btn btn-danger btn-sm\" value=\"Stop\"/>");
+    				$("#bots").append("<br><br>");
     			}
     		});
 	});
