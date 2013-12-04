@@ -73,7 +73,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
 
 #left {
     float: left;
-    /* height: 450px; */
+    height: 1000px;
     background-color:#d8d8d8;
     padding: 15px;
 }
@@ -117,9 +117,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
 }
 
 #left #navbar .btn{
-    background-color:#A2C892; 
+    background-color:#70382D; 
     width:100%; 
-    margin: 2%
+    margin: 2%;
+    border: none !important;
 }
 
 

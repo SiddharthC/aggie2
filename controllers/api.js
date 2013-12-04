@@ -115,7 +115,7 @@ var Controller = {
 	},
 
 	home : function(req, res, next) {
-		res.sendfile("home.html", {root: "./views/"});
+		res.sendfile("messages.html", {root: "./views/"});
 	},
 
 	renderBotPage : function(req, res, next) {

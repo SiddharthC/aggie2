@@ -10,7 +10,7 @@ var ChartController = {
 		results.datasets = [];
 		results.datasets.push({
 			fillColor : "rgba(151,187,205,0.5)",
-			strokeColor : "rgba(151,187,205,1)",
+			strokeColor : "#333",
 			pointColor : "rgba(151,187,205,1)",
 			pointStrokeColor : "#fff",
 			data: []
