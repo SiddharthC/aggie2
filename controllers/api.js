@@ -233,11 +233,11 @@ var Controller = {
 					console.error(err);
 				} else {
 					if(data){
-						if(data.length <= 10){
+						if(data.length <= 1){
 							res.send(data);
 							return;
 						}
-						res.send(data.slice(data.length - 9, data.length));
+						res.send(data.slice(data.length - 1, data.length));
 					}	
 				}
 			});	

@@ -67,7 +67,7 @@ $(document).ready(function() {
 		var MILLIS_IN_MIN = 60 * 1000;
 		var minsAgo = (current.getTime() - tweetDate.getTime())/MILLIS_IN_MIN;
 
-		return Math.floor(minsAgo);
+		return minsAgo <= 0 ? 0 : Math.floor(minsAgo);
 	};
 
 	var homeHandler = function(){
