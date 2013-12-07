@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 var config = require("./config/config.js");
 
-var Controller = require('./controllers/api.js');
+var AggieController = require('./controllers/aggie.js');
 var _ = require("underscore");
 
 var app = express();
@@ -20,29 +20,31 @@ app.get("/", function(req, res) {
 });
 
 
-/* serve the registration page */
-app.get("/register", Controller.helper.authenticateAdmin, Controller.registerPage);
-app.get("/login", Controller.loginPage);
-app.get("/home", Controller.helper.authenticate, Controller.home);
-app.post("/register", Controller.helper.authenticateAdmin, Controller.register);
-app.post("/login", Controller.login);
-app.post("/logout", Controller.logout);
+/* serving pages */
+app.get("/register", AggieController.helper.authenticateAdmin, AggieController.registerPage);
+app.get("/login", AggieController.loginPage);
+app.get("/home", AggieController.helper.authenticate, AggieController.home);
+
+/* register and login/logout functionality */
+app.post("/register", AggieController.helper.authenticateAdmin, AggieController.register);
+app.post("/login", AggieController.login);
+app.post("/logout", AggieController.logout);
 
 
 /* Twitter API */
-app.get("/twitter-bot-page", Controller.helper.authenticate, Controller.renderBotPage);
-app.post("/start-twitter-bot", _.bind(Controller.startTwitterBot, {bot_controller: Controller.bot_controller}));
-app.post("/stop-twitter-bot", _.bind(Controller.stopTwitterBot, {bot_controller: Controller.bot_controller}));
+app.get("/twitter-bot-page", AggieController.helper.authenticate, AggieController.renderBotPage);
+app.post("/start-twitter-bot", _.bind(AggieController.startTwitterBot, {bot_AggieController: AggieController.bot_AggieController}));
+app.post("/stop-twitter-bot", _.bind(AggieController.stopTwitterBot, {bot_AggieController: AggieController.bot_AggieController}));
 
 /* RSS API */
-app.post("/add-feed-url", Controller.addFeedUrl);
-app.get("/search-rss-feed", Controller.searchRssFeed);
+app.post("/add-feed-url", AggieController.addFeedUrl);
+app.get("/search-rss-feed", AggieController.searchRssFeed);
 
 /* Handle GET request for feed */
-app.get("/feed", Controller.feed);
+app.get("/feed", AggieController.feed);
 
-/* Get chart data to show trends on front end */
-app.get("/trends", Controller.getChartData);
+/* Get analytics data */
+app.get("/trends", AggieController.getChartData);
 
 app.listen(config.SERVER_PORT);
 console.log("Aggie 2.0 is up and running on port =====> " + config.SERVER_PORT);

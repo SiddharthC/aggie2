@@ -1,9 +1,9 @@
 var express = require("express");
 var mongoStore = require("connect-mongo")(express);
-var Controller = require('../controllers/api.js');
+var AggieController = require('../controllers/aggie.js');
 
 module.exports = function(app, config){
-	app.configure(Controller.configure);
+	app.configure(AggieController.configure);
 
 	app.use(express.json());
 	app.use(express.urlencoded());
