@@ -11,3 +11,25 @@ Installing Aggie-2.0
 9) Use the admin credentials {admin:adminadmin} to login.
 10) New Tweet Bots can be started by typing in search terms in the input box on the top right corner and the result can be observed in the live feed.
 
+Understanding the Code
+
+This section provides an overview of the implementation of Aggie-2.0 platform. The primary technologies used in the implementation are
+	
+	1) Node.js - which provides the basic framework for all the search bots (Twitter, RSS and Facebook) and for the web front end.
+	2) Express - the web framework we used to provide a REST API for Aggie-2.0
+	3) MongoDB - provided the database to store feed from various data sources.
+	4) Twit - javascript wrappers over Twitter API
+	5) Feedparser - node.js module to parse RSS feeds
+	6) Bootstrap 3.0 - the UI framework used on the front end
+	7) jQuery - UI library used on the web front end which provides functionality for dynamic HTML insertion and making AJAX calls to the server.
+
+We have also used a number of Node.js modules/libraries to assist us in various book-keeping operations like login/session management and password encryption.
+
+Code Structure
+
+./app.js : This is the primary script that begins the Aggie-2.0 web service by connecting it to the MongoDB database (URL specified in ./config/config.js) and exposing a set of routes that can be queried by a HTTP client.
+
+./package.json : This file contains all the dependencies of Aggie-2.0.
+
+
+
