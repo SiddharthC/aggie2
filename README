@@ -1,9 +1,13 @@
-How to use:
+Installing Aggie-2.0
 
-1) Install node.js > Google it
-2) Install MongoDB > Google it
-3) Start MongoDB server instance > $ mongod 
-4) Go to the /node folder and run => npm install
-5) Then run => node app.js
-6) Open localhost:9000/register to see the registration page. Enter form details and hit submit.
-7) Open mongo console ($ mongo) and run => 1) use Aggie 2) db.users.find()
+1) Install node.js on the system. Check out http://nodejs.org/download/ to download an installer/source
+2) Install MongoDB which serves as the primary database for the system. http://www.mongodb.org/downloads
+3) Download the Aggie-2.0 project source from Github => https://github.com/alexstelea/Aggie2.0
+4) Create a data directory for MongoDB with the structure /data/db/
+5) Start MongoDB server instance by running $ mongod --dbpath=”path-to/data/db/”
+6) Go to the project folder (the one that contains app.js & package.json) and run npm install
+7) Run node app.js
+8) Open a browser and go to http://localhost:9000 to check if the login screen comes up.
+9) Use the admin credentials {admin:adminadmin} to login.
+10) New Tweet Bots can be started by typing in search terms in the input box on the top right corner and the result can be observed in the live feed.
+
