@@ -17,7 +17,7 @@ This section provides an overview of the implementation of Aggie-2.0 platform. T
 	
 	1) Node.js - which provides the basic framework for all the search bots (Twitter, RSS and Facebook) and for the web front end.
 	2) Express - the web framework we used to provide a REST API for Aggie-2.0
-	3) MongoDB - provided the database to store feed from various data sources.
+	3) MongoDB/Mongoose - provided the database to store feed from various data sources.
 	4) Twit - javascript wrappers over Twitter API
 	5) Feedparser - node.js module to parse RSS feeds
 	6) Bootstrap 3.0 - the UI framework used on the front end
@@ -30,6 +30,21 @@ Code Structure
 ./app.js : This is the primary script that begins the Aggie-2.0 web service by connecting it to the MongoDB database (URL specified in ./config/config.js) and exposing a set of routes that can be queried by a HTTP client.
 
 ./package.json : This file contains all the dependencies of Aggie-2.0.
+
+./controllers/aggie.js : Contains all the core functionality of Aggie. Most of this functionality is exposed as REST API in ./app.js
+./controllers/chart-controller.js : Contains functionality to extract analytics data from the database
+./controllers/bots/twitterbot/twitter-bot-controller.js : Contains methods to start and stop keyword searches on Twitter
+./controllers/bots/rss/rss-controller.js : Wrapper over the node library - Feedparser to crawl RSS feed for specific search terms
+
+./models/data.js : Data model for data feeds
+./models/user.js : Data model for users - contains built in methods for password encryption
+
+./views/ : This folder contains all the static content like HTML markup, CSS stylesheets and client side JavaScript.
+
+./config/config.js : Contains all the configuration settings for the application such as Database URL and server port number.
+./config/express.js : Bootstrapping code for the Express server.
+
+
 
 
 
