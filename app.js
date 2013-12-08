@@ -33,8 +33,8 @@ app.post("/logout", AggieController.logout);
 
 /* Twitter API */
 app.get("/twitter-bot-page", AggieController.helper.authenticate, AggieController.renderBotPage);
-app.post("/start-twitter-bot", _.bind(AggieController.startTwitterBot, {bot_AggieController: AggieController.bot_AggieController}));
-app.post("/stop-twitter-bot", _.bind(AggieController.stopTwitterBot, {bot_AggieController: AggieController.bot_AggieController}));
+app.post("/start-twitter-bot", _.bind(AggieController.startTwitterBot, {bot_controller: AggieController.bot_controller}));
+app.post("/stop-twitter-bot", _.bind(AggieController.stopTwitterBot, {bot_controller: AggieController.bot_controller}));
 
 /* RSS API */
 app.post("/add-feed-url", AggieController.addFeedUrl);
