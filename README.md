@@ -25,7 +25,7 @@ This section provides an overview of the implementation of Aggie-2.0 platform. T
 
 We have also used a number of Node.js modules/libraries to assist us in various book-keeping operations like login/session management and password encryption.
 
-Code Structure
+[Code Structure]
 
 ./app.js : This is the primary script that begins the Aggie-2.0 web service by connecting it to the MongoDB database (URL specified in ./config/config.js) and exposing a set of routes that can be queried by a HTTP client.
 
